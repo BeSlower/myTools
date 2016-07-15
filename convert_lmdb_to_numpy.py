@@ -3,7 +3,6 @@ import lmdb
 import numpy as np
 from argparse import ArgumentParser
 
-#from utils import *
 
 if 'caffe/python' not in sys.path:
     sys.path.insert(0, 'caffe/python')
