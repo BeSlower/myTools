@@ -25,6 +25,7 @@ disp('distance matrix calculation finished')
 
 % rawidx indicate the index of image feature or current index for processing 
 for rawidx = 1:num_img
+
     % calculate the number of images in training list
     num_img_inclass = size(find(label==label(rawidx)), 1);
  
