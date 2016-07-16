@@ -1,0 +1,7 @@
+Market-1501/bounding_box_train/0774_c1s4_017856_01.jpg 1
+Market-1501/bounding_box_test/0731_c6s2_103618_03.jpg 2
+Market-1501/bounding_box_test/0351_c5s1_080323_04.jpg 3
+Market-1501/bounding_box_test/1419_c5s3_051690_04.jpg 4
+Market-1501/bounding_box_test/0794_c3s2_089303_02.jpg 5
+Market-1501/bounding_box_train/0352_c6s1_080001_03.jpg 6
+Market-1501/bounding_box_test/0974_c5s2_119899_04.jpg 7
