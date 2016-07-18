@@ -1,0 +1,183 @@
+name: "caffe_siamese_example"
+#input: "data"
+#input_dim: 1
+#input_dim: 3
+#input_dim: 224
+#input_dim: 224
+
+layer {
+  name: "data"
+  type: "SiameseData"
+  top: "data"
+  top: "label"
+  transform_param {
+    mirror: true
+    crop_size_height: 224
+	crop_size_width: 224
+    mean_value: [103.94, 116.78, 123.68]
+#	color_cast: 30
+#	aspect_ratio: 1.4
+#	rotation: 10
+#	scale_jittering: 1.5
+  }
+  image_data_param {
+    source: "./train_list_random.txt"
+    batch_size: 16
+    new_height: 256
+    new_width: 256
+	shuffle: true
+  }
+  include: { 
+    phase: TRAIN 
+  }
+}
+
+...
+...
+...
+...
+network architecture
+...
+...
+...
+...
+...
+
+# reshape and slice fc
+layer{
+  name: "pool5_reshape"
+  type: "Reshape"
+  bottom: "fc2048"
+  top: "pool5_reshape"
+  reshape_param {
+        shape{
+            dim: -1
+            dim: 2
+            dim: 2048
+        }
+  }
+  include: { 
+    phase: TRAIN 
+  }
+}
+
+layer {
+  name: "slice_pair_pool5"
+  type: "Slice"
+  bottom: "pool5_reshape"
+  top: "pool5_reshape_1"
+  top: "pool5_reshape_2"
+  slice_param {
+    slice_dim: 1
+  }
+  include: { 
+    phase: TRAIN 
+  }
+}
+#reshape fc for contrastive
+layer{
+  name: "pool5_reshape_1a"
+  type: "Reshape"
+  bottom: "pool5_reshape_1"
+  top: "pool5_reshape_1_reshape"
+  reshape_param {
+        shape{
+            dim: -1
+            dim: 2048
+        }
+  }
+  include: { 
+    phase: TRAIN 
+  }
+}
+layer{
+  name: "pool5_reshape_2a"
+  type: "Reshape"
+  bottom: "pool5_reshape_2"
+  top: "pool5_reshape_2_reshape"
+  reshape_param {
+        shape{
+            dim: -1
+            dim: 2048
+        }
+  }
+  include: { 
+    phase: TRAIN 
+  }
+}
+# reshape and slice label
+layer{
+  name: "label_reshape"
+  type: "Reshape"
+  bottom: "label"
+  top: "label_reshape"
+  reshape_param {
+        shape{
+            dim: -1
+            dim: 2
+        }
+  }
+  include: { 
+    phase: TRAIN 
+  }
+}
+layer {
+  name: "slice_pair_label"
+  type: "Slice"
+  bottom: "label_reshape"
+  top: "label_reshape_1"
+  top: "label_reshape_2"
+  slice_param {
+    slice_dim: 1
+  }
+  include: { 
+    phase: TRAIN 
+  }
+}
+
+#reshape label for contrastive
+layer{
+  name: "reshape_label_1"
+  type: "Reshape"
+  bottom: "label_reshape_1"
+  top: "label_reshape_1_reshape"
+  reshape_param {
+        shape{
+            dim: -1
+        }
+  }
+  include: { 
+    phase: TRAIN 
+  }
+}
+layer{
+  name: "reshape_label_2"
+  type: "Reshape"
+  bottom: "label_reshape_2"
+  top: "label_reshape_2_reshape"
+  reshape_param {
+        shape{
+            dim: -1
+        }
+  }
+  include: { 
+    phase: TRAIN 
+  }
+}
+
+layer {
+  name: "loss_contrastive"
+  type: "ContrastiveLoss"
+  bottom: "pool5_reshape_1_reshape"
+  bottom: "pool5_reshape_2_reshape"
+  bottom: "label_reshape_1_reshape"
+  bottom: "label_reshape_2_reshape"
+  top: "loss_contrastive"
+  contrastive_loss_param {
+    margin: -1
+  }
+  loss_weight: 0.0001
+  include: {
+    phase: TRAIN
+  }
+}
