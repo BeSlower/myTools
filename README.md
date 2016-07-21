@@ -9,8 +9,8 @@ I keep this respository for some useful tools.
 - scale_jittering [1.5]
 
 #### caffe_normalization
-- L2 and L2 normalization layer source code
-- mainly add before the triplet loss layer
+- L1 and L2 normalization layer source code
+- mainly use in front of the triplet loss layer
 
 #### caffe_siamese
 - siamese training strategy
