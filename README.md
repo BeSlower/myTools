@@ -1,12 +1,20 @@
 # myTools
 I keep this respository for some useful tools.
 ## Description
+#### caffe_ccl
+- coupled-clusters loss layer source code implemented by [nicklhy](https://github.com/nicklhy/caffe-dev)
+- check out [paper](http://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Liu_Deep_Relative_Distance_CVPR_2016_paper.pdf) for detail about coupled-clusters loss
+
 #### caffe_data_augment
 - data augmentation layer source code
 - color_cast      [30]
 - aspect_ratio    [1.4]
 - rotation        [10]
 - scale_jittering [1.5]
+
+#### caffe_lbn
+- batch normalization source code
+- check out [paper](http://arxiv.org/pdf/1502.03167.pdf) for detail about batch normalization
 
 #### caffe_normalization
 - L1 and L2 normalization layer source code
