@@ -37,7 +37,7 @@ I keep this respository for some useful tools.
 #### circular_train.sh
 - circularly train caffe model shell example
 - mainly for training the triplet loss based network
-- include hard negtive and positive samples mining
+- include hard negative and positive samples mining
 
 #### convert_lmdb_to_numpy.py
 - convert the format of image feature extracted from caffemodel
