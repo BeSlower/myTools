@@ -104,10 +104,10 @@ void CoupledClusterLossLayer<Dtype>::Forward_cpu(
         for(int j=0; j<N; ++j) {
             if(std::count(neg_ids[i].begin(), neg_ids[i].end(), j)>0) {
                 Dtype d = dist_sq_.cpu_data()[i*N+j];
-                Dtype mdist = std::max(d+margin-pos_max_val, Dtype(0));
+                Dtype mdist = std::max(-d+margin+pos_max_val, Dtype(0));
                 if(log_flag)
                     LOG(INFO) << "j=" << j << ", d=" << d << ", pos_max_val=" << pos_max_val << ", mdist=" << mdist;
-                if(mdist<0) neg_backward[i*N+j] = true;
+                if(mdist>0) neg_backward[i*N+j] = true;
             }
             else {
                 Dtype d = dist_sq_.cpu_data()[i*N+j];
