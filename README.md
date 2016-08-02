@@ -27,10 +27,10 @@ I keep this respository for some useful tools.
 #### genList
 - generate proper training list for caffe image_data_layer
 - for triplet loss based training  
-  - one closest negitive sample (hard negtive) and one farthest positive sample to anchor
+  - one closest negative sample (hard negative) and one farthest positive sample to anchor
   - check out [paper](https://arxiv.org/pdf/1503.03832.pdf) for details about triplet loss
 - for lifted-structured based training 
-  - n closest hard negtive samples and (n-1) farthest positive samples
+  - n closest hard negative samples and (n-1) farthest positive samples
   - bath size is 2n (include anchor)
   - check out [paper](https://arxiv.org/pdf/1511.06452.pdf) for details about lifted-structured feature embedding
 
